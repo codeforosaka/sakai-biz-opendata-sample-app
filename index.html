@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<style>
+body {
+  text-align: center;
+}
+img {
+  height: 20vh;
+  margin: 1vh;
+}
+button {
+  margin: 3em;
+  padding: 5em;
+}
+</style>
+<h1>さかしるガチャ</h1>
+<img src=gachagacha.png id=btn placeholder=ガチャ><br>
+<div id=container></div>
+<hr>
+App: CC BY <a href=>Code for Sakai</a><br>
+
+
+<script type="module">
+import { shuffle } from "https://js.sabae.cc/shuffle.js";
+
+onload = async () => {
+  const data = await (await fetch("https://codeforosaka.github.io/sakai-biz-opendata/data/company_images.json")).json();
+  console.log(data);
+  btn.onclick = () => {
+    container.innerHTML = "";
+    shuffle(data);
+    for (let i = 0; i < 3; i++) {
+      const d = data[i];
+      const img = new Image();
+      img.src = d.image;
+      img.onclick = () => {
+        alert(d.name + " (" + d.companyId + ")");
+      };
+      container.appendChild(img);
+    }
+  }
+}
+</script>
