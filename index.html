@@ -20,7 +20,7 @@ hr {
 </style>
 <h1>さかしるガチャ</h1>
 <img src=https://codeforosaka.github.io/sakai-biz-opendata-sample-app/gachagacha.png id=btn placeholder=ガチャ><br>
-div id=container></div>
+<div id=container></div>
 <hr>
 App: CC BY <a href=https://github.com/codeforosaka/sakai-biz-opendata-sample-app/>Code for Sakai</a><br>
 Data: <a href=https://github.com/codeforosaka/sakai-biz-opendata/>さかしるAPI</a><br>
@@ -28,6 +28,13 @@ Data: <a href=https://github.com/codeforosaka/sakai-biz-opendata/>さかしるAP
 
 <script type="module">
 import { shuffle } from "https://js.sabae.cc/shuffle.js";
+
+const getSakacilURL = async (cn) => {
+  const url = "https://sakacil.com/getDetailUrlFromCorporationNo.php?cn=" + cn;
+  const res = await (await fetch(url)).text();
+  return res;
+};
+
 
 onload = async () => {
   const data = await (await fetch("https://codeforosaka.github.io/sakai-biz-opendata/data/company_images.json")).json();
@@ -39,8 +46,10 @@ onload = async () => {
       const d = data[i];
       const img = new Image();
       img.src = d.image;
-      img.onclick = () => {
-        alert(d.name + " (" + d.companyId + ")");
+      img.onclick = async () => {
+        const url = await getSakacilURL(d.companyId);
+        window.open(url, "_blank");
+        //alert(d.name + " (" + d.companyId + ")");
       };
       container.appendChild(img);
     }
