@@ -17,9 +17,24 @@ button {
 hr {
   border-color: #222;
 }
+#gacha {
+  font-weight: bold;
+  cursor: pointer;
+}
+#btn {
+  cursor: pointer;
+}
+a {
+  color: #222 !important;
+}
 </style>
 <h1>さかしるガチャ</h1>
+堺市のポータルサイト「<a href=https://sakacil.com/>さかしる</a>」の<a href=https://github.com/codeforosaka/sakai-biz-opendata/>企業情報オープンデータ</a>の画像からランダムに3つ表示します！<br>
+気になる画像をクリックしてみましょう！
+<br>
 <img src=https://codeforosaka.github.io/sakai-biz-opendata-sample-app/gachagacha.png id=btn placeholder=ガチャ><br>
+レッツ、<a id=gacha>ガチャ</a>！<br>
+<br>
 <div id=container></div>
 <hr>
 App: CC BY <a href=https://github.com/codeforosaka/sakai-biz-opendata-sample-app/>Code for Sakai</a><br>
@@ -40,7 +55,7 @@ const getSakacilURL = async (cn) => {
 onload = async () => {
   const data = await (await fetch("https://codeforosaka.github.io/sakai-biz-opendata/data/company_images.json")).json();
   console.log(data);
-  btn.onclick = () => {
+  gacha.onclick = btn.onclick = () => {
     container.innerHTML = "";
     shuffle(data);
     for (let i = 0; i < 3; i++) {
