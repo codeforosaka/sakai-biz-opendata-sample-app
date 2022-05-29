@@ -44,13 +44,7 @@ Link: <a href=https://sakacil.com/>さかしる</a><br>
 
 <script type="module">
 import { shuffle } from "https://js.sabae.cc/shuffle.js";
-
-const getSakacilURL = async (cn) => {
-  const url = "https://sakacil.com/getDetailUrlFromCorporationNo.php?cn=" + cn;
-  const res = await (await fetch(url)).text();
-  return res;
-};
-
+import { getSakacilURL } from "./getSakacilURL.js";
 
 onload = async () => {
   const data = await (await fetch("https://codeforosaka.github.io/sakai-biz-opendata/data/company_images.json")).json();
